@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Apach Spark Transformations | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Apach Spark Transformations" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apach Spark Transformations" />
+<meta property="og:description" content="Apach Spark Transformations" />
+<link rel="canonical" href="https://sudheer.github.io/computing/2017/01/12/spark_transformations.html" />
+<meta property="og:url" content="https://sudheer.github.io/computing/2017/01/12/spark_transformations.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-01-12T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Apach Spark Transformations","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/computing/2017/01/12/spark_transformations.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/computing/2017/01/12/spark_transformations.html","headline":"Apach Spark Transformations","dateModified":"2017-01-12T00:00:00-06:00","datePublished":"2017-01-12T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/feed.xml" title="Sudheer" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Apach Spark Transformations | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Apach Spark Transformations" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apach Spark Transformations" />
+<meta property="og:description" content="Apach Spark Transformations" />
+<link rel="canonical" href="https://sudheer.github.io/computing/2017/01/12/spark_transformations.html" />
+<meta property="og:url" content="https://sudheer.github.io/computing/2017/01/12/spark_transformations.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-01-12T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Apach Spark Transformations","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/computing/2017/01/12/spark_transformations.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/computing/2017/01/12/spark_transformations.html","headline":"Apach Spark Transformations","dateModified":"2017-01-12T00:00:00-06:00","datePublished":"2017-01-12T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/feed.xml" title="Sudheer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Sudheer</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Apach Spark Transformations</h1><p class="page-description">Apach Spark Transformations</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2017-01-12T00:00:00-06:00" itemprop="datePublished">
+        Jan 12, 2017
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#computing">computing</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/sudheer/blog/blob/master/_notebooks/2017-01-12-spark_transformations.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Aggregate">Aggregate </a></li>
+<li class="toc-entry toc-h2"><a href="#cartesian">cartesian </a></li>
+<li class="toc-entry toc-h2"><a href="#countByValue">countByValue </a></li>
+<li class="toc-entry toc-h2"><a href="#collect">collect </a></li>
+<li class="toc-entry toc-h2"><a href="#distinct">distinct </a></li>
+<li class="toc-entry toc-h2"><a href="#filter">filter </a></li>
+<li class="toc-entry toc-h2"><a href="#first">first </a></li>
+<li class="toc-entry toc-h2"><a href="#flatMap">flatMap </a></li>
+<li class="toc-entry toc-h2"><a href="#glom">glom </a></li>
+<li class="toc-entry toc-h2"><a href="#groupBy">groupBy </a></li>
+<li class="toc-entry toc-h2"><a href="#intersection">intersection </a></li>
+<li class="toc-entry toc-h2"><a href="#map">map </a></li>
+<li class="toc-entry toc-h2"><a href="#mapPartitions">mapPartitions </a></li>
+<li class="toc-entry toc-h2"><a href="#mapPartitionsWithIndex">mapPartitionsWithIndex </a></li>
+<li class="toc-entry toc-h2"><a href="#mapPartitionsWithIndex">mapPartitionsWithIndex </a></li>
+<li class="toc-entry toc-h2"><a href="#randomSplit">randomSplit </a></li>
+<li class="toc-entry toc-h2"><a href="#reduce">reduce </a></li>
+<li class="toc-entry toc-h2"><a href="#repartition">repartition </a></li>
+<li class="toc-entry toc-h2"><a href="#sample">sample </a></li>
+<li class="toc-entry toc-h2"><a href="#sortBy">sortBy </a></li>
+<li class="toc-entry toc-h2"><a href="#subtract">subtract </a></li>
+<li class="toc-entry toc-h2"><a href="#take">take </a></li>
+<li class="toc-entry toc-h2"><a href="#takeSample">takeSample </a></li>
+<li class="toc-entry toc-h2"><a href="#toLocalIterator">toLocalIterator </a></li>
+<li class="toc-entry toc-h2"><a href="#union">union </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2017-01-12-spark_transformations.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://user-images.githubusercontent.com/8268939/79700662-3c5bdc80-824c-11ea-85aa-4559e7028a8d.png" alt="Apache_Spark_logo svg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aggregate">
+<a class="anchor" href="#Aggregate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aggregate<a class="anchor-link" href="#Aggregate"> </a>
+</h2>
+<p>The aggregate can return a different type than RDD on which we are working on. It allows users to apply 2 functions, one on top of each partition (input type T =&gt; U), other to aggregate the results of all the partitions into final result (merging 2 U's). Both the functions have to be commutative and associative. We can also specify a initial value.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="mi">0</span><span class="p">)((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">u</span><span class="o">+</span><span class="n">v</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[1] at parallelize at &lt;console&gt;:27
+output: Int = 28
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="cartesian">
+<a class="anchor" href="#cartesian" aria-hidden="true"><span class="octicon octicon-link"></span></a>cartesian<a class="anchor-link" href="#cartesian"> </a>
+</h2>
+<p>Return the Cartesian product of this RDD and another one. result contains all pairs of (a,b) where a belongs to rdd1 and b belongs to rdd2.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">3</span> <span class="n">to</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">cartesian</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[2] at parallelize at &lt;console&gt;:25
+rdd2: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[3] at parallelize at &lt;console&gt;:26
+output: Array[(Int, Int)] = Array((1,3), (1,4), (1,5), (2,3), (2,4), (2,5))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="countByValue">
+<a class="anchor" href="#countByValue" aria-hidden="true"><span class="octicon octicon-link"></span></a>countByValue<a class="anchor-link" href="#countByValue"> </a>
+</h2>
+<p>Returns count of each unique value in this RDD as a local map of (value, count) pairs. Should be careful while using this when you have large data as it sends the results to driver.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">countByValue</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[5] at parallelize at &lt;console&gt;:27
+output: scala.collection.Map[Int,Long] = Map(5 -&gt; 1, 10 -&gt; 1, 1 -&gt; 1, 6 -&gt; 1, 9 -&gt; 1, 2 -&gt; 1, 7 -&gt; 1, 3 -&gt; 1, 8 -&gt; 1, 4 -&gt; 1)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="collect">
+<a class="anchor" href="#collect" aria-hidden="true"><span class="octicon octicon-link"></span></a>collect<a class="anchor-link" href="#collect"> </a>
+</h2>
+<p>Used only when the rdd is small enough. Return an array that contains all of the elements in this RDD.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="distinct">
+<a class="anchor" href="#distinct" aria-hidden="true"><span class="octicon octicon-link"></span></a>distinct<a class="anchor-link" href="#distinct"> </a>
+</h2>
+<p>Return a new RDD containing the distinct elements in this RDD. Shuffle happens on this transformation.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">distinct</span><span class="p">();</span>
+<span class="n">output</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>data: Seq[Int] = List(1, 1, 2, 2, 3, 4)
+inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[10] at parallelize at &lt;console&gt;:30
+output: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[13] at distinct at &lt;console&gt;:31
+res0: Array[Int] = Array(1, 2, 3, 4)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="filter">
+<a class="anchor" href="#filter" aria-hidden="true"><span class="octicon octicon-link"></span></a>filter<a class="anchor-link" href="#filter"> </a>
+</h2>
+<p>Return a new RDD containing only the elements that satisfy a predicate.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">filterOutput</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="n">s</span> <span class="o">=&gt;</span> <span class="n">s</span><span class="o">&gt;</span><span class="mi">2</span> <span class="p">)</span>
+<span class="n">filterOutput</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>data: Seq[Int] = List(1, 2, 3, 4)
+inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[14] at parallelize at &lt;console&gt;:29
+filterOutput: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[15] at filter at &lt;console&gt;:30
+res1: Array[Int] = Array(3, 4)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="first">
+<a class="anchor" href="#first" aria-hidden="true"><span class="octicon octicon-link"></span></a>first<a class="anchor-link" href="#first"> </a>
+</h2>
+<p>Return the first element in this RDD.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Int = 1
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="flatMap">
+<a class="anchor" href="#flatMap" aria-hidden="true"><span class="octicon octicon-link"></span></a>flatMap<a class="anchor-link" href="#flatMap"> </a>
+</h2>
+<p>Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results. You need to supply (A ⇒ Iterable[B]) function to the flatMap i.e on each element of input A, Map is applied followed by flatten which is flatMap.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span> <span class="n">s</span> <span class="o">=&gt;</span> <span class="n">List</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">s</span><span class="o">+</span><span class="mi">2</span><span class="p">));</span>
+<span class="n">output</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>data: Seq[Int] = List(1, 2, 3, 4)
+inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &lt;console&gt;:31
+output: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[18] at flatMap at &lt;console&gt;:32
+res2: Array[Int] = Array(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="glom">
+<a class="anchor" href="#glom" aria-hidden="true"><span class="octicon octicon-link"></span></a>glom<a class="anchor-link" href="#glom"> </a>
+</h2>
+<p>Return an RDD created by coalescing all elements within each partition into an array.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">glom</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[19] at parallelize at &lt;console&gt;:27
+output: Array[Array[Int]] = Array(Array(1, 2, 3, 4, 5), Array(6, 7, 8, 9, 10))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="groupBy">
+<a class="anchor" href="#groupBy" aria-hidden="true"><span class="octicon octicon-link"></span></a>groupBy<a class="anchor-link" href="#groupBy"> </a>
+</h2>
+<ul>
+<li>Return an RDD of grouped items.</li>
+<li>Each group consists of a key and a sequence of elements mapping to that key.</li>
+<li>Ordering is not guaranteed, not same for every execution.</li>
+<li>Shuffle happens, better to use reduceby than groupby since it does not combine in each partition itself ( i.e groupBy happens in reduce phase), hence result high network traffic.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[21] at parallelize at &lt;console&gt;:27
+output: Array[(Int, Iterable[Int])] = Array((1,CompactBuffer(1)), (2,CompactBuffer(2)), (3,CompactBuffer(3, 3)), (4,CompactBuffer(4, 4)))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="intersection">
+<a class="anchor" href="#intersection" aria-hidden="true"><span class="octicon octicon-link"></span></a>intersection<a class="anchor-link" href="#intersection"> </a>
+</h2>
+<ul>
+<li>Return the intersection of this RDD and another one.</li>
+<li>Result will not contain any duplicate.</li>
+<li>Done by map, co-group, filter in the background.</li>
+<li>performs a shuffle internally</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+               <span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)))</span>
+               <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Array[Int] = Array(3, 4)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="map">
+<a class="anchor" href="#map" aria-hidden="true"><span class="octicon octicon-link"></span></a>map<a class="anchor-link" href="#map"> </a>
+</h2>
+<p>Return a new RDD by applying a function to all elements of this RDD</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span> <span class="n">s</span> <span class="o">=&gt;</span> <span class="n">s</span><span class="o">+</span><span class="mi">1</span> <span class="p">)</span> <span class="o">//</span> <span class="n">applying</span> <span class="n">anonymus</span> <span class="n">function</span> <span class="n">to</span> <span class="n">rdd</span> <span class="n">elements</span><span class="o">.</span>
+<span class="n">output</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>  
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>data: Seq[Int] = List(1, 2, 3, 4)
+inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[32] at parallelize at &lt;console&gt;:32
+output: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[33] at map at &lt;console&gt;:33
+res3: Array[Int] = Array(2, 3, 4, 5)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="mapPartitions">
+<a class="anchor" href="#mapPartitions" aria-hidden="true"><span class="octicon octicon-link"></span></a>mapPartitions<a class="anchor-link" href="#mapPartitions"> </a>
+</h2>
+<p>Return a new RDD by applying a function to each partition of this RDD.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">mapPartitions</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[34] at parallelize at &lt;console&gt;:27
+output: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="mapPartitionsWithIndex">
+<a class="anchor" href="#mapPartitionsWithIndex" aria-hidden="true"><span class="octicon octicon-link"></span></a>mapPartitionsWithIndex<a class="anchor-link" href="#mapPartitionsWithIndex"> </a>
+</h2>
+<p>Similar to mapPartitions, additionally tracks the index of the original partition.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">mapPartitions</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[36] at parallelize at &lt;console&gt;:27
+output: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="mapPartitionsWithIndex">
+<a class="anchor" href="#mapPartitionsWithIndex" aria-hidden="true"><span class="octicon octicon-link"></span></a>mapPartitionsWithIndex<a class="anchor-link" href="#mapPartitionsWithIndex"> </a>
+</h2>
+<p>Similar to mapPartitions, additionally tracks the index of the original partition.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">mapPartitionsWithIndex</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">itr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">itr</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">s</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">s</span><span class="p">)))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[38] at parallelize at &lt;console&gt;:27
+output: Array[(Int, Int)] = Array((0,1), (0,2), (0,3), (0,4), (0,5), (1,6), (1,7), (1,8), (1,9), (1,10))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="randomSplit">
+<a class="anchor" href="#randomSplit" aria-hidden="true"><span class="octicon octicon-link"></span></a>randomSplit<a class="anchor-link" href="#randomSplit"> </a>
+</h2>
+<p>Randomly splits this RDD with the provided weights. You can specify the fraction weights the output rdd's needs to split. However you can see they are not exactly equally split based on fraction as in example.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">)</span> 
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">inputRdd</span><span class="o">.</span><span class="n">randomSplit</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span> <span class="o">//</span> <span class="k">return</span><span class="s1">'s array of rdd'</span><span class="n">s</span>   
+<span class="n">output</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> <span class="o">//</span> <span class="n">rdd</span> <span class="ow">in</span> <span class="mi">0</span><span class="n">th</span> <span class="n">location</span> 
+<span class="n">output</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> <span class="o">//</span> <span class="n">rdd</span> <span class="ow">in</span> <span class="mi">1</span><span class="n">st</span> <span class="n">location</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[40] at parallelize at &lt;console&gt;:28
+output: Array[org.apache.spark.rdd.RDD[Int]] = Array(MapPartitionsRDD[41] at randomSplit at &lt;console&gt;:29, MapPartitionsRDD[42] at randomSplit at &lt;console&gt;:29)
+res4: Array[Int] = Array(2, 4, 7, 9)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="reduce">
+<a class="anchor" href="#reduce" aria-hidden="true"><span class="octicon octicon-link"></span></a>reduce<a class="anchor-link" href="#reduce"> </a>
+</h2>
+<p>Reduces the elements of this RDD. function in reduce obey's commutative and  associative properties.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">((</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">u</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Int = 15
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="repartition">
+<a class="anchor" href="#repartition" aria-hidden="true"><span class="octicon octicon-link"></span></a>repartition<a class="anchor-link" href="#repartition"> </a>
+</h2>
+<p>Return a new RDD that has exactly the passed argument partitions to this method.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> 
+<span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> 
+<span class="n">inputRdd</span><span class="o">.</span><span class="n">partitions</span><span class="p">;</span> <span class="o">//</span> <span class="n">Get</span> <span class="n">the</span> <span class="n">array</span> <span class="n">of</span> <span class="n">partitions</span> <span class="n">of</span> <span class="n">this</span> <span class="n">RDD</span> 
+<span class="n">inputRdd</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>data: Seq[Int] = List(1, 2, 3, 4)
+inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[44] at parallelize at &lt;console&gt;:30
+res5: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[48] at repartition at &lt;console&gt;:34
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="sample">
+<a class="anchor" href="#sample" aria-hidden="true"><span class="octicon octicon-link"></span></a>sample<a class="anchor-link" href="#sample"> </a>
+</h2>
+<p>Return a sampled subset of this RDD.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> 
+
+<span class="n">inputRdd</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">true</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>   
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[49] at parallelize at &lt;console&gt;:27
+res6: Array[Int] = Array(9, 10)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="sortBy">
+<a class="anchor" href="#sortBy" aria-hidden="true"><span class="octicon octicon-link"></span></a>sortBy<a class="anchor-link" href="#sortBy"> </a>
+</h2>
+<p>Return this RDD sorted by the given key function. You should pass function since its not pair rdd to generate key, boolean (asce/desc).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span>  <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">Array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="p">,</span><span class="n">false</span><span class="p">)</span> <span class="o">//</span> <span class="n">desc</span> <span class="n">order</span> <span class="n">by</span> <span class="n">false</span>
+                <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Array[Int] = Array(4, 3, 2, 1)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="subtract">
+<a class="anchor" href="#subtract" aria-hidden="true"><span class="octicon octicon-link"></span></a>subtract<a class="anchor-link" href="#subtract"> </a>
+</h2>
+<p>Subtracts elements of one rdd from other</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">5</span> <span class="n">to</span> <span class="mi">15</span><span class="p">))</span>
+<span class="n">output</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[62] at subtract at &lt;console&gt;:27
+res7: Array[Int] = Array(1, 2, 3, 4)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="take">
+<a class="anchor" href="#take" aria-hidden="true"><span class="octicon octicon-link"></span></a>take<a class="anchor-link" href="#take"> </a>
+</h2>
+<p>Take the first num elements of the RDD. It works by first scanning one partition, and use the results from that partition to estimate the number of additional partitions needed to satisfy the limit.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Array[Int] = Array(1, 2)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="takeSample">
+<a class="anchor" href="#takeSample" aria-hidden="true"><span class="octicon octicon-link"></span></a>takeSample<a class="anchor-link" href="#takeSample"> </a>
+</h2>
+<p>Return a fixed-size sampled subset of this RDD in an array.</p>
+<table>
+<thead>
+<tr>
+<th>sample</th>
+<th>takeSample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>It returns an RDD</td>
+<td>It returns an Array</td>
+</tr>
+<tr>
+<td>Return a fixed-size sampled subset</td>
+<td>Return a fixed-size sampled subset</td>
+</tr>
+<tr>
+<td>Should specify sample as Double fraction arg</td>
+<td>sample is specified as Int</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">inputRdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> 
+<span class="n">inputRdd</span><span class="o">.</span><span class="n">takeSample</span><span class="p">(</span><span class="n">true</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>   
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>inputRdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[64] at parallelize at &lt;console&gt;:27
+res8: Array[Int] = Array(7, 7, 4)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="toLocalIterator">
+<a class="anchor" href="#toLocalIterator" aria-hidden="true"><span class="octicon octicon-link"></span></a>toLocalIterator<a class="anchor-link" href="#toLocalIterator"> </a>
+</h2>
+<p>Return an iterator by converting RDD into a scala iterator that contains all of the elements in this RDD.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">toLocalIterator</span>
+  
+  <span class="k">while</span> <span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">hasNext</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
+  <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+2
+3
+4
+5
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>output: Iterator[Int] = empty iterator
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="union">
+<a class="anchor" href="#union" aria-hidden="true"><span class="octicon octicon-link"></span></a>union<a class="anchor-link" href="#union"> </a>
+</h2>
+<ul>
+<li>Return the union of this RDD and another one.</li>
+<li>Identical elements will appear multiple times.</li>
+<li>Need to use distinct to eliminate them.</li>
+<li>Can also use ++ instead of union.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">b</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">10</span> <span class="n">to</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+    
+<span class="n">a</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[67] at parallelize at &lt;console&gt;:25
+b: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[68] at parallelize at &lt;console&gt;:26
+res10: Array[Int] = Array(4, 16, 14, 6, 8, 12, 18, 20, 10, 2, 13, 19, 15, 11, 1, 17, 3, 7, 9, 5)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="sudheer/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/computing/2017/01/12/spark_transformations.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>stories by sudheer</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/sudheer" title="sudheer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/needforcode" title="needforcode"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
