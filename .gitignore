@@ -10,4 +10,8 @@ _notebooks/.ipynb_checkpoints
 # Local Netlify folder
 .netlify
 .tweet-cache
-__pycache__
+__pycache_
+.idea
+.DS_Store
+.ipynb_checkpoints
+settings.ini
