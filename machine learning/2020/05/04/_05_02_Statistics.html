@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Statistics for Machine Learning | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Statistics for Machine Learning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Basic stats needed for machine learning" />
+<meta property="og:description" content="Basic stats needed for machine learning" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Basic stats needed for machine learning","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html","headline":"Statistics for Machine Learning","dateModified":"2020-05-04T00:00:00-05:00","datePublished":"2020-05-04T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Statistics for Machine Learning | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Statistics for Machine Learning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Basic stats needed for machine learning" />
+<meta property="og:description" content="Basic stats needed for machine learning" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Basic stats needed for machine learning","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/04/_05_02_Statistics.html","headline":"Statistics for Machine Learning","dateModified":"2020-05-04T00:00:00-05:00","datePublished":"2020-05-04T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Sudheer</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Statistics for Machine Learning</h1><p class="page-description">Basic stats needed for machine learning</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-04T00:00:00-05:00" itemprop="datePublished">
+        May 4, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#machine learning">machine learning</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/sudheer/blog/blob/master/_notebooks/2020_05_02_Statistics.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Mean-Median-and-Mode">Mean Median and Mode </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Mean">Mean </a></li>
+<li class="toc-entry toc-h2"><a href="#Median">Median </a></li>
+<li class="toc-entry toc-h2"><a href="#Mode">Mode </a></li>
+<li class="toc-entry toc-h2"><a href="#How-they-change">How they change </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020_05_02_Statistics.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Mean-Median-and-Mode">
+<a class="anchor" href="#Mean-Median-and-Mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mean Median and Mode<a class="anchor-link" href="#Mean-Median-and-Mode"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">marks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">89</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">87</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets plot the histogram of marks and analyse it.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">marks</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"marks"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"frequency"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you see we have an outlier in the data 35 which could bring down the average marks of the class.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mean">
+<a class="anchor" href="#Mean" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mean<a class="anchor-link" href="#Mean"> </a>
+</h2>
+<p>$\mu=\frac{\sum_{i=1}^{N} x_{i}}{N}$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">marks</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>83.25</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Median">
+<a class="anchor" href="#Median" aria-hidden="true"><span class="octicon octicon-link"></span></a>Median<a class="anchor-link" href="#Median"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>if n is odd</strong></p>
+<p>$Median =\left(\frac{n+1}{2}\right)^{t h} term$</p>
+<p><strong>if n is even</strong></p>
+<p>$\text { Median }=\frac{\left(\frac{n}{2}\right)^{t h} \text {term}+\left(\frac{n}{2}+1\right)^{t h} \text { term }}{2}$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">marks</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>87.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mode">
+<a class="anchor" href="#Mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mode<a class="anchor-link" href="#Mode"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">marks</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>ModeResult(mode=array([87]), count=array([3]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-they-change">
+<a class="anchor" href="#How-they-change" aria-hidden="true"><span class="octicon octicon-link"></span></a>How they change<a class="anchor-link" href="#How-they-change"> </a>
+</h2>
+<p><img src="https://user-images.githubusercontent.com/8268939/81034613-95329400-8e4c-11ea-9e44-3930cf0e0619.jpeg" alt="FD0B573E-2D62-4100-B9F9-68FC36677A87"></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="sudheer/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/machine%20learning/2020/05/04/_05_02_Statistics.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>stories by sudheer</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/sudheer" title="sudheer"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/needforcode" title="needforcode"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
