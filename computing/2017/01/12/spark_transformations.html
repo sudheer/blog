@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      8 min read
     
 </span></p>
 
@@ -148,6 +148,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#intersection">intersection </a></li>
 <li class="toc-entry toc-h2"><a href="#map">map </a></li>
 <li class="toc-entry toc-h2"><a href="#mapPartitions">mapPartitions </a></li>
+<li class="toc-entry toc-h2"><a href="#mapPartitionsWithIndex">mapPartitionsWithIndex </a></li>
 <li class="toc-entry toc-h2"><a href="#mapPartitionsWithIndex">mapPartitionsWithIndex </a></li>
 <li class="toc-entry toc-h2"><a href="#randomSplit">randomSplit </a></li>
 <li class="toc-entry toc-h2"><a href="#reduce">reduce </a></li>
@@ -806,6 +807,53 @@ res3: Array[Int] = Array(2, 3, 4, 5)
 
 <div class="output_text output_subarea output_execute_result">
 <pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[34] at parallelize at &lt;console&gt;:27
+output: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="mapPartitionsWithIndex">
+<a class="anchor" href="#mapPartitionsWithIndex" aria-hidden="true"><span class="octicon octicon-link"></span></a>mapPartitionsWithIndex<a class="anchor-link" href="#mapPartitionsWithIndex"> </a>
+</h2>
+<p>Similar to mapPartitions, additionally tracks the index of the original partition.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val</span> <span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">val</span> <span class="n">output</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">mapPartitions</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[36] at parallelize at &lt;console&gt;:27
 output: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
 </pre>
 </div>
