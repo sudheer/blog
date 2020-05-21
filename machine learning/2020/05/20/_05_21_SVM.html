@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Support Vector Machines | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Support Vector Machines" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SVM" />
+<meta property="og:description" content="SVM" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-20T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-20T00:00:00-05:00","datePublished":"2020-05-20T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Support Vector Machines | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Support Vector Machines" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SVM" />
+<meta property="og:description" content="SVM" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-20T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/20/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-20T00:00:00-05:00","datePublished":"2020-05-20T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Sudheer</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Support Vector Machines</h1><p class="page-description">SVM</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-20T00:00:00-05:00" itemprop="datePublished">
+        May 20, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#machine learning">machine learning</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/sudheer/blog/blob/master/_notebooks/2020_05_21_SVM.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Key-ideas">Key ideas </a></li>
+<li class="toc-entry toc-h1"><a href="#Applications">Applications </a></li>
+<li class="toc-entry toc-h1"><a href="#Linear-vs-Non-Linear">Linear vs Non Linear </a></li>
+<li class="toc-entry toc-h1"><a href="#Usecases">Usecases </a></li>
+<li class="toc-entry toc-h1"><a href="#Hypothesis-function">Hypothesis function </a></li>
+<li class="toc-entry toc-h1"><a href="#Linear-Classifier">Linear Classifier </a></li>
+<li class="toc-entry toc-h1"><a href="#SVM-margin-width">SVM margin width </a></li>
+<li class="toc-entry toc-h1"><a href="#Optimization-problem">Optimization problem </a></li>
+<li class="toc-entry toc-h1"><a href="#using-kernel-spec">using kernel spec </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020_05_21_SVM.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>SVM aims to make the margings as large as possible between closest data points of those classes.</p>
+<h1 id="Key-ideas">
+<a class="anchor" href="#Key-ideas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key ideas<a class="anchor-link" href="#Key-ideas"> </a>
+</h1>
+<ul>
+<li>find hyperplane that separates the class </li>
+<li>increase the margin that separates the class </li>
+<li>use kernal spec to make the model work for Non Linear data.</li>
+</ul>
+<h1 id="Applications">
+<a class="anchor" href="#Applications" aria-hidden="true"><span class="octicon octicon-link"></span></a>Applications<a class="anchor-link" href="#Applications"> </a>
+</h1>
+<ul>
+<li>Handwriting recognition </li>
+<li>facial recognition</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/8268939/82343745-13904980-99a8-11ea-8a4f-39583fe81eef.png" alt="image"></p>
+<p>we can apply it for Linear as well as Non Linear. For Non Linear data we will use kerner spec.</p>
+<h1 id="Linear-vs-Non-Linear">
+<a class="anchor" href="#Linear-vs-Non-Linear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear vs Non Linear<a class="anchor-link" href="#Linear-vs-Non-Linear"> </a>
+</h1>
+<p><img src="https://user-images.githubusercontent.com/8268939/82466239-fecdb780-9a74-11ea-8723-52ea50c95654.png" alt=""></p>
+<h1 id="Usecases">
+<a class="anchor" href="#Usecases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usecases<a class="anchor-link" href="#Usecases"> </a>
+</h1>
+<ul>
+<li>regression</li>
+<li>classification</li>
+</ul>
+<h1 id="Hypothesis-function">
+<a class="anchor" href="#Hypothesis-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hypothesis function<a class="anchor-link" href="#Hypothesis-function"> </a>
+</h1>
+<p>$h\left(x_{i}\right)=\left\{\begin{array}{ll}
++1 &amp; \text { if } w \cdot x+b \geq 0 \\
+-1 &amp; \text { if } w \cdot x+b&lt;0
+\end{array}\right.$</p>
+<h1 id="Linear-Classifier">
+<a class="anchor" href="#Linear-Classifier" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear Classifier<a class="anchor-link" href="#Linear-Classifier"> </a>
+</h1>
+<p><img src="https://user-images.githubusercontent.com/8268939/82403216-28ee8d80-9a13-11ea-8780-6c31a0babf70.png" alt="image"></p>
+<h1 id="SVM-margin-width">
+<a class="anchor" href="#SVM-margin-width" aria-hidden="true"><span class="octicon octicon-link"></span></a>SVM margin width<a class="anchor-link" href="#SVM-margin-width"> </a>
+</h1>
+<p><img src="https://user-images.githubusercontent.com/8268939/82405620-4888b480-9a19-11ea-8325-e0646ea060a3.png" alt="image"></p>
+<h1 id="Optimization-problem">
+<a class="anchor" href="#Optimization-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization problem<a class="anchor-link" href="#Optimization-problem"> </a>
+</h1>
+<p>${2}/{||w||}$ also can be taken as $1/2* ||w||^2$ which is $1/2 * W^T * W$</p>
+<p>Now the width equation to be minimized is</p>
+<p>Minimize : $\Phi(\mathbf{w})=1 / 2 \mathbf{w}^{T} \mathbf{w}$</p>
+<p>Subject to $: y_{i}\left(\mathbf{w}^{T} \mathbf{x}_{\mathbf{i}}+b\right)-1 \geq 0 \quad \forall i$</p>
+<p>Integrating constraints into lagrangian form...
+</p>
+<div class="flash">
+    <svg class="octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>Minimize $: J(\mathbf{w}, b, \boldsymbol{\alpha})=1 / 2 \mathbf{w}^{T} \mathbf{w}-\sum_{i=1}^{N} \alpha_{i} y_{i}\left(\mathbf{w}^{T} \mathbf{x}_{\mathbf{i}}+b\right)+\sum_{i=1}^{N} \alpha_{i}$
+</div>
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>Subject to $: \alpha_{i} \geq 0 \quad \forall i$
+</div>
+Minimize J wrt $w$ and $b$ and maximize wrt $\alpha$
+<h1 id="using-kernel-spec">
+<a class="anchor" href="#using-kernel-spec" aria-hidden="true"><span class="octicon octicon-link"></span></a>using kernel spec<a class="anchor-link" href="#using-kernel-spec"> </a>
+</h1>
+<p><img src="https://user-images.githubusercontent.com/8268939/82531120-91ad3700-9af3-11ea-9b6e-3498cb54f858.jpeg" alt="17A37789-E666-4712-9A6E-23D1F47CC0E5"></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load iris dataset</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+
+<span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">iris_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">iris_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">iris_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])]</span>
+<span class="n">iris_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(100, 5)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># visualize</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'petal length (cm)'</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">'petal width (cm)'</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">'target'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'petal length (scaled)'</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'petal width (scaled)'</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># separate input and output variables from dataframe</span>
+<span class="n">X</span><span class="o">=</span><span class="n">iris_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># train the model with default hyperparameter</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="n">svc</span><span class="o">=</span><span class="n">SVC</span><span class="p">()</span> <span class="c1">#Default hyperparameters</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span><span class="o">=</span><span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Accuracy Score:'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy Score:
+1.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print confusion matrix </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[19  0  0]
+ [ 0 15  0]
+ [ 0  0 16]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="sudheer/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/machine%20learning/2020/05/20/_05_21_SVM.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>stories by sudheer</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/sudheer" title="sudheer"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/needforcode" title="needforcode"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
