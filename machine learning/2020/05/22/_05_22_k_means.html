@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>K means clustering | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="K means clustering" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="k means clustering algorithm" />
+<meta property="og:description" content="k means clustering algorithm" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-22T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"k means clustering algorithm","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html","headline":"K means clustering","dateModified":"2020-05-22T00:00:00-05:00","datePublished":"2020-05-22T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>K means clustering | Sudheer</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="K means clustering" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="k means clustering algorithm" />
+<meta property="og:description" content="k means clustering algorithm" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html" />
+<meta property="og:site_name" content="Sudheer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-22T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"k means clustering algorithm","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/22/_05_22_k_means.html","headline":"K means clustering","dateModified":"2020-05-22T00:00:00-05:00","datePublished":"2020-05-22T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Sudheer</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">K means clustering</h1><p class="page-description">k means clustering algorithm</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-22T00:00:00-05:00" itemprop="datePublished">
+        May 22, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#machine learning">machine learning</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/sudheer/blog/blob/master/_notebooks/2020_05_22_k_means.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#How-k-means-work">How k means work </a></li>
+<li class="toc-entry toc-h1"><a href="#Error-Equation-for-optmization">Error Equation for optmization </a></li>
+<li class="toc-entry toc-h1"><a href="#Complexity">Complexity </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Time">Time </a></li>
+<li class="toc-entry toc-h2"><a href="#Space">Space </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020_05_22_k_means.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Clustering is the process of dividing the entire data into groups.</p>
+<p><img src="https://user-images.githubusercontent.com/8268939/82712197-59fdd680-9c3c-11ea-8536-7f0251b7161c.png" alt="image"></p>
+<h1 id="How-k-means-work">
+<a class="anchor" href="#How-k-means-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>How k means work<a class="anchor-link" href="#How-k-means-work"> </a>
+</h1>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcblx0QVtTdGFydF0gLS0-IEJbL051bWJlciBvZiBjbHVzdGVycywgay9dXG5cdEIgLS0-IENbY2FsY3VsYXRlIGNlbnRyb2lkXVxuXHRDIC0tPiBEW2NhbGN1bGF0ZSBkaXN0YW5jZXMgdG8gY2VudHJvaWRdXG5cdEQgLS0-IEVbZmE6ZmEtb2JqZWN0LWdyb3VwIEdyb3VwIGJhc2VkIG9uIG1pbiBkaXN0YW5jZV1cbiAgICBFIC0tPiBGe0NvbnZlcmdlbmNlID99XG4gICAgRiAtLT4gfFllc3wgRW5kXG4gICAgRiAtLT4gfE5PfCBDXG5cdFx0XHRcdFx0IiwibWVybWFpZCI6eyJ0aGVtZSI6Im5ldXRyYWwifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"><img src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcblx0QVtTdGFydF0gLS0-IEJbL051bWJlciBvZiBjbHVzdGVycywgay9dXG5cdEIgLS0-IENbY2FsY3VsYXRlIGNlbnRyb2lkXVxuXHRDIC0tPiBEW2NhbGN1bGF0ZSBkaXN0YW5jZXMgdG8gY2VudHJvaWRdXG5cdEQgLS0-IEVbZmE6ZmEtb2JqZWN0LWdyb3VwIEdyb3VwIGJhc2VkIG9uIG1pbiBkaXN0YW5jZV1cbiAgICBFIC0tPiBGe0NvbnZlcmdlbmNlID99XG4gICAgRiAtLT4gfFllc3wgRW5kXG4gICAgRiAtLT4gfE5PfCBDXG5cdFx0XHRcdFx0IiwibWVybWFpZCI6eyJ0aGVtZSI6Im5ldXRyYWwifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0" alt=""></a></p>
+<h1 id="Error-Equation-for-optmization">
+<a class="anchor" href="#Error-Equation-for-optmization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Error Equation for optmization<a class="anchor-link" href="#Error-Equation-for-optmization"> </a>
+</h1>
+<p>Assume we have points $X = {x_1, x_2... x_n}$</p>
+<p>Clusters $S = {s_1, s_2, ... , s_k}$</p>
+<p>where $\mu_i$ is mean of centroid $s_i$</p>
+<p>Optimization criteria WCSS (within cluster sum of squares) is ..</p>
+<p>$\sum_{i=1}^{k} \sum_{x \in S_{i}}\left\|x_{i-\mu_{i}}\right\|^{2}$</p>
+<h1 id="Complexity">
+<a class="anchor" href="#Complexity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Complexity<a class="anchor-link" href="#Complexity"> </a>
+</h1>
+<h2 id="Time">
+<a class="anchor" href="#Time" aria-hidden="true"><span class="octicon octicon-link"></span></a>Time<a class="anchor-link" href="#Time"> </a>
+</h2>
+<p>Each Round:  O(kN) for N points, k clusters</p>
+<p>For i (I) rounds: O(IkN)</p>
+<p>For M-dimensional vectors: O(IkMN)</p>
+<h2 id="Space">
+<a class="anchor" href="#Space" aria-hidden="true"><span class="octicon octicon-link"></span></a>Space<a class="anchor-link" href="#Space"> </a>
+</h2>
+<ul>
+<li>To store points and centroids: O((N+K)M)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># input dataset</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">4.6</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">4.5</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.6</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">11</span><span class="p">]])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fdc2a798e48&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># distance formulae</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x1</span><span class="o">-</span><span class="n">x2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># num of clusters</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># max num of iterations</span>
+
+
+
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+
+  <span class="n">samples</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+  <span class="c1"># initialize centroids</span>
+  <span class="n">initial_centroids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+  <span class="n">centroids</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="p">[</span><span class="n">cent</span><span class="p">]</span> <span class="k">for</span> <span class="n">cent</span> <span class="ow">in</span> <span class="n">initial_centroids</span><span class="p">]</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"initial centroids </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">centroids</span><span class="p">))</span>
+
+  <span class="c1"># cluster list</span>
+  
+
+  <span class="k">for</span> <span class="n">iterations</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+
+    <span class="n">cluster_list</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
+      <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">euclidean</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span> <span class="k">for</span> <span class="n">centroid</span> <span class="ow">in</span> <span class="n">centroids</span><span class="p">]</span>
+      <span class="n">min_centroid_pos</span> <span class="o">=</span> <span class="n">distances</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">distances</span><span class="p">))</span>
+      <span class="n">cluster_list</span><span class="p">[</span><span class="n">min_centroid_pos</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+    <span class="n">old_centroids</span> <span class="o">=</span> <span class="n">centroids</span>
+    <span class="n">centroids</span> <span class="o">=</span> <span class="n">update_centroids</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">k_means_converged</span><span class="p">(</span><span class="n">old_centroids</span><span class="p">,</span> <span class="n">centroids</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">"K means done"</span><span class="p">)</span>
+      <span class="k">break</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">)</span> 
+
+<span class="k">def</span> <span class="nf">update_centroids</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">)</span>
+        <span class="c1"># assign mean value of clusters to centroids</span>
+        <span class="n">new_centroids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">features</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">cluster_idx</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">):</span>
+          <span class="n">cluster_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cluster_list</span><span class="p">[</span><span class="n">cluster_idx</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+          <span class="n">new_centroids</span><span class="p">[</span><span class="n">cluster_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_mean</span>
+        <span class="k">return</span> <span class="n">new_centroids</span>
+
+<span class="k">def</span> <span class="nf">k_means_converged</span><span class="p">(</span><span class="n">centroids_old</span><span class="p">,</span> <span class="n">centroids</span><span class="p">):</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">euclidean_distance</span><span class="p">(</span><span class="n">centroids_old</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>        
+
+<span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>initial centroids [array([3.5, 4.6]), array([ 9., 11.])]
+[[array([1., 3.]), array([3.5, 4.6]), array([4.5, 4.5]), array([6., 7.]), array([2. , 1.6])], [array([8., 9.]), array([ 9., 11.])]]
+[[array([1., 3.]), array([3.5, 4.6]), array([4.5, 4.5]), array([6., 7.]), array([2. , 1.6])], [array([8., 9.]), array([ 9., 11.])]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="sudheer/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/machine%20learning/2020/05/22/_05_22_k_means.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>stories by sudheer</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/sudheer" title="sudheer"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/needforcode" title="needforcode"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
