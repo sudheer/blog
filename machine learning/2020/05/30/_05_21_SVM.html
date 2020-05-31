@@ -9,13 +9,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="SVM" />
 <meta property="og:description" content="SVM" />
-<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html" />
-<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html" />
 <meta property="og:site_name" content="Sudheer" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-05-28T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-05-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-28T00:00:00-05:00","datePublished":"2020-05-28T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-30T00:00:00-05:00","datePublished":"2020-05-30T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://sudheer.github.io/blog/feed.xml" title="Sudheer" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Support Vector Machines | Sudheer</title>
@@ -24,13 +24,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="SVM" />
 <meta property="og:description" content="SVM" />
-<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html" />
-<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html" />
+<link rel="canonical" href="https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html" />
+<meta property="og:url" content="https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html" />
 <meta property="og:site_name" content="Sudheer" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-05-28T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-05-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/28/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-28T00:00:00-05:00","datePublished":"2020-05-28T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"SVM","mainEntityOfPage":{"@type":"WebPage","@id":"https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html"},"@type":"BlogPosting","url":"https://sudheer.github.io/blog/machine%20learning/2020/05/30/_05_21_SVM.html","headline":"Support Vector Machines","dateModified":"2020-05-30T00:00:00-05:00","datePublished":"2020-05-30T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -101,13 +101,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Support Vector Machines</h1><p class="page-description">SVM</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-28T00:00:00-05:00" itemprop="datePublished">
-        May 28, 2020
+    <h1 class="post-title p-name" itemprop="name headline">Support Vector Machines</h1><p class="page-description">SVM</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-30T00:00:00-05:00" itemprop="datePublished">
+        May 30, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      3 min read
     
 </span></p>
 
@@ -140,9 +140,10 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#Linear-vs-Non-Linear">Linear vs Non Linear </a></li>
 <li class="toc-entry toc-h1"><a href="#Usecases">Usecases </a></li>
 <li class="toc-entry toc-h1"><a href="#Hypothesis-function">Hypothesis function </a></li>
-<li class="toc-entry toc-h1"><a href="#Linear-Classifier">Linear Classifier </a></li>
+<li class="toc-entry toc-h1"><a href="#Goal-of-SVM">Goal of SVM </a></li>
 <li class="toc-entry toc-h1"><a href="#SVM-margin-width">SVM margin width </a></li>
 <li class="toc-entry toc-h1"><a href="#Optimization-problem">Optimization problem </a></li>
+<li class="toc-entry toc-h1"><a href="#SVM-Types">SVM Types </a></li>
 <li class="toc-entry toc-h1"><a href="#using-kernel-spec">using kernel spec </a></li>
 </ul><!--
 #################################################
@@ -179,7 +180,6 @@ window.onload = wrap_img;
 <li>Handwriting recognition </li>
 <li>facial recognition</li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/8268939/82343745-13904980-99a8-11ea-8a4f-39583fe81eef.png" alt="image"></p>
 <p>we can apply it for Linear as well as Non Linear. For Non Linear data we will use kerner spec.</p>
 <h1 id="Linear-vs-Non-Linear">
 <a class="anchor" href="#Linear-vs-Non-Linear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear vs Non Linear<a class="anchor-link" href="#Linear-vs-Non-Linear"> </a>
@@ -195,23 +195,35 @@ window.onload = wrap_img;
 <h1 id="Hypothesis-function">
 <a class="anchor" href="#Hypothesis-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hypothesis function<a class="anchor-link" href="#Hypothesis-function"> </a>
 </h1>
-<p>$h\left(x_{i}\right)=\left\{\begin{array}{ll}
-+1 &amp; \text { if } w \cdot x+b \geq 0 \\
--1 &amp; \text { if } w \cdot x+b&lt;0
-\end{array}\right.$</p>
-<h1 id="Linear-Classifier">
-<a class="anchor" href="#Linear-Classifier" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear Classifier<a class="anchor-link" href="#Linear-Classifier"> </a>
+<p>Lets say we have training samples ${(x_i, y_i), i=1 to n}$ where $x_i \in {R}$ are input training samples and $y_i$ where $y_i \in \{-1, +1\}$ are class attributes i.e output classifications.</p>
+<p>Lets assume these are linearly separable, then there exist vector $w \in R$ and scalar $b \in R$</p>
+<p>$w^T x_i + b &gt; 0, \forall i  \text{ such that } y_i = +1$</p>
+<p>$w^T x_i + b &lt; 0, \forall i  \text{ such that } y_i = -1$</p>
+<p>Since the classes are linearly separable, there exists a line that separates the 2 classes.</p>
+<p>$w_T x + b = 0$</p>
+<p>By scaling above equation, we can also find such that there will be no samples existing between these hyperplanes.</p>
+<p>$w_T x + b \geq 1, \forall i  \text{ such that } y_i = +1$
+$w_T x + b \leq -1, \forall i  \text{ such that } y_i = -1$</p>
+<p>The above equations can also be written as....</p>
+<p>$y_i * [w^T x_i + b ] \geq 1, i \in \{1...n\}$</p>
+<p>The distance between these equations is called <strong>margin</strong></p>
+<p><img src="https://user-images.githubusercontent.com/8268939/83337847-9603ed80-a273-11ea-8d78-bf9621da5f4a.png" alt="image"></p>
+<h1 id="Goal-of-SVM">
+<a class="anchor" href="#Goal-of-SVM" aria-hidden="true"><span class="octicon octicon-link"></span></a>Goal of SVM<a class="anchor-link" href="#Goal-of-SVM"> </a>
 </h1>
-<p><img src="https://user-images.githubusercontent.com/8268939/82403216-28ee8d80-9a13-11ea-8780-6c31a0babf70.png" alt="image"></p>
+<p>To find the max margin between the hyperplanes such that there will be no data points in between them.</p>
+<p><img src="https://user-images.githubusercontent.com/8268939/82343745-13904980-99a8-11ea-8a4f-39583fe81eef.png" alt="image"></p>
 <h1 id="SVM-margin-width">
 <a class="anchor" href="#SVM-margin-width" aria-hidden="true"><span class="octicon octicon-link"></span></a>SVM margin width<a class="anchor-link" href="#SVM-margin-width"> </a>
 </h1>
+<p><img src="https://user-images.githubusercontent.com/8268939/83341367-7d0d3380-a297-11ea-833d-ad00e632ce09.png" alt="image"></p>
 <p><img src="https://user-images.githubusercontent.com/8268939/82405620-4888b480-9a19-11ea-8325-e0646ea060a3.png" alt="image"></p>
 <h1 id="Optimization-problem">
 <a class="anchor" href="#Optimization-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization problem<a class="anchor-link" href="#Optimization-problem"> </a>
 </h1>
-<p>${2}/{||w||}$ also can be taken as $1/2* ||w||^2$ which is $1/2 * W^T * W$</p>
-<p>Now the width equation to be minimized is</p>
+<p>The width equation $\frac{2}{||w||}$ also can be taken as $\frac{1}{2* ||w||^2}$ which is $\frac{1}{2 * w^T * w}$</p>
+<p>Maximize $\frac{2}{||w||}$ mean minimize $\frac{1}{2 * w^T * w}$</p>
+<p><strong>For Hard Margin SVM</strong></p>
 <p>Minimize : $\Phi(\mathbf{w})=1 / 2 \mathbf{w}^{T} \mathbf{w}$</p>
 <p>Subject to $: y_{i}\left(\mathbf{w}^{T} \mathbf{x}_{\mathbf{i}}+b\right)-1 \geq 0 \quad \forall i$</p>
 <p>Integrating constraints into lagrangian form...
@@ -225,6 +237,10 @@ window.onload = wrap_img;
     <strong>Note: </strong>Subject to $: \alpha_{i} \geq 0 \quad \forall i$
 </div>
 Minimize J wrt $w$ and $b$ and maximize wrt $\alpha$
+<h1 id="SVM-Types">
+<a class="anchor" href="#SVM-Types" aria-hidden="true"><span class="octicon octicon-link"></span></a>SVM Types<a class="anchor-link" href="#SVM-Types"> </a>
+</h1>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcblx0QVtTVk0gVHlwZXNdIC0tPiBCKEhhcmQgTWFyZ2luKVxuXHRBIC0tPiBDKFNvZnQgTWFyZ2luKVxuXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcblx0QVtTVk0gVHlwZXNdIC0tPiBCKEhhcmQgTWFyZ2luKVxuXHRBIC0tPiBDKFNvZnQgTWFyZ2luKVxuXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" alt=""></a></p>
 <h1 id="using-kernel-spec">
 <a class="anchor" href="#using-kernel-spec" aria-hidden="true"><span class="octicon octicon-link"></span></a>using kernel spec<a class="anchor-link" href="#using-kernel-spec"> </a>
 </h1>
@@ -537,7 +553,7 @@ Minimize J wrt $w$ and $b$ and maximize wrt $\alpha$
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/blog/machine%20learning/2020/05/28/_05_21_SVM.html" hidden></a>
+</script><a class="u-url" href="/blog/machine%20learning/2020/05/30/_05_21_SVM.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
